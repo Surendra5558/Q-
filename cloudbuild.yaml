@@ -1,20 +1,19 @@
 steps:
-  # Step 1: Backup existing code by moving
-  - name: 'gcr.io/cloud-builders/gcloud'
+ - name : 'gcr.io/cloud-builders/gcloud'
     entrypoint: 'bash'
     args:
       - -c
       - |
-        gcloud compute ssh dev-linuxvm --zone=us-central1-c	 --command "
+          gcloud compute ssh dev-linuxvm 
+		  --zone=us-central1-c 
+		  --command "
           timestamp=\$(date +\"%Y%m%d%H%M%S\");
-          mkdir -p /var/www/backups;
+		  mkdir -p /var/www/dpma_backups;
           if [ -d /var/www/my_app ]; then
             mv /var/www/my_app /var/www/backups/my_app_\$timestamp;
-            echo '✅ Backup moved to /var/www/backups/my_app_\$timestamp';
-          else
-            echo '⚠️ No existing code found at /var/www/my_app, skipping backup.';
-          fi
-          mkdir -p /var/www/my_app
-        "
+		    echo 'Backup moved;'
+		  else
+		    echo 'Backup Failed';"
+			
 options:
   logging: CLOUD_LOGGING_ONLY
