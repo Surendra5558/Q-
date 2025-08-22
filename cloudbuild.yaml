@@ -4,7 +4,7 @@ steps:
     args:
       - compute
       - ssh
-      - my-vm
+      - dev-linuxvm
       - --
       - bash
       - -c
