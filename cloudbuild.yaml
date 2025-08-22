@@ -5,9 +5,9 @@ steps:
     args:
       - -c
       - |
-        gcloud compute ssh dev-linuxvm --zone=us-central1-c	 
-        --command 
-        "
+        gcloud compute ssh dev-linuxvm 
+        --zone=us-central1-c	 
+        --command "
           timestamp=\$(date +\"%Y%m%d%H%M%S\");
           mkdir -p /var/dpma_backups;
           if [ -d /var/www/my_app ]; then
