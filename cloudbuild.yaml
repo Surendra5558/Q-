@@ -16,17 +16,15 @@ steps:
           mkdir -p /var/www/my_app
         "
 
-  # Step 2: Copy new code from Cloud Build workspace to VM and run npm commands
   - name: 'gcr.io/cloud-builders/gcloud'
     entrypoint: 'bash'
     args:
       - -c
       - |
-        # Copy source code from Cloud Build to VM
-        gcloud compute scp --recurse ./ dev-linuxvm:/var/www/my_app --zone=us-central1-c
-
-        # SSH into VM and run npm commands
-        gcloud compute ssh dev-linuxvm --zone=us-central1-c --command "
+        gcloud compute scp --recurse /workspace/* dev-linuxvm:/var/www/my_app --zone=us-central1-c
+        # gcloud compute ssh dev-linuxvm --zone=us-central1-c --command "
+          # cd /var/www/my_app && npm install && npm run build
         "
+
 options:
   logging: CLOUD_LOGGING_ONLY
