@@ -1,1 +1,20 @@
-
+steps:
+  # Step 1: Backup existing code by moving
+  - name: 'gcr.io/cloud-builders/gcloud'
+    args:
+      - compute
+      - ssh
+      - my-vm
+      - --
+      - bash
+      - -c
+      - |
+        timestamp=$(date +"%Y%m%d%H%M%S");
+        mkdir -p /var/www/backups;
+        if [ -d /var/www/my_app ]; then
+          mv /var/www/myapp /var/www/backups/my_app_$timestamp;
+          echo "✅ Backup moved to /var/www/backups/myapp_$timestamp";
+        else
+          echo "⚠️ No existing code found at /var/www/myapp, skipping backup.";
+        fi
+        mkdir -p /var/www/my_app
