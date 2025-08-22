@@ -7,11 +7,14 @@ steps:
       - |
         gcloud compute ssh dev-linuxvm --zone=us-central1-c	 --command "
           timestamp=\$(date +\"%Y%m%d%H%M%S\");
+          mkdir -p /var/backups;
           if [ -d /var/www/my_app ]; then
             mv /var/www/my_app /var/www/backups/my_app_\$timestamp;
-            echo 'Backup moved';
+            echo '✅ Backup moved to /var/www/backups/my_app_\$timestamp';
           else
-            echo 'No existing code found at /var/www/my_app, skipping backup.';
+            echo '⚠️ No existing code found at /var/www/my_app, skipping backup.';
+          fi
+          mkdir -p /var/www/my_app
         "
 options:
   logging: CLOUD_LOGGING_ONLY
