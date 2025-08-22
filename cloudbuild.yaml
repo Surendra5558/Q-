@@ -6,7 +6,7 @@ steps:
       - -c
       - |
         gcloud compute ssh dev-linuxvm --zone=us-central1-c --command "
-          timestamp=\$(date +\"%Y%m%d%H%M%S\");
+          timestamp=\$(TZ="Asia/Kolkata" date +"%Y%m%d%H%M%S");
           if [ -d /var/www/my_app ]; then
             mv /var/www/my_app /var/www/backups/my_app_\$timestamp;
             echo 'Backup moved';
