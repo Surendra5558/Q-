@@ -5,7 +5,7 @@ steps:
     args:
       - -c
       - |
-        gcloud compute ssh dev-linuxvm --zone=us-central1-c	 --command "
+        gcloud compute ssh dev-linuxvm --zone=us-central1-c --command "
           timestamp=\$(date +\"%Y%m%d%H%M%S\");
           if [ -d /var/www/my_app ]; then
             mv /var/www/my_app /var/www/backups/my_app_\$timestamp;
@@ -13,7 +13,20 @@ steps:
           else
             echo '⚠️ No existing';
           fi
-            mkdir -p /var/www/my_app
-          "
+          mkdir -p /var/www/my_app
+        "
+
+  # Step 2: Copy new code from Cloud Build workspace to VM and run npm commands
+  - name: 'gcr.io/cloud-builders/gcloud'
+    entrypoint: 'bash'
+    args:
+      - -c
+      - |
+        # Copy source code from Cloud Build to VM
+        gcloud compute scp --recurse ./ dev-linuxvm:/var/www/my_app --zone=us-central1-c
+
+        # SSH into VM and run npm commands
+        gcloud compute ssh dev-linuxvm --zone=us-central1-c --command "
+        "
 options:
   logging: CLOUD_LOGGING_ONLY
