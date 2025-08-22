@@ -18,3 +18,5 @@ steps:
           echo "⚠️ No existing code found at /var/www/myapp, skipping backup.";
         fi
         mkdir -p /var/www/my_app
+options:
+  logging: CLOUD_LOGGING_ONLY
