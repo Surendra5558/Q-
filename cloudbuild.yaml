@@ -11,7 +11,6 @@ steps:
             mv /var/www/my_app /var/www/backups/my_app_\$timestamp;
             echo 'Backup moved';
           else
-            echo '⚠️ No existing';
-        "
+            echo '⚠️ No existing';"
 options:
   logging: CLOUD_LOGGING_ONLY
